@@ -1,25 +1,37 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
+import BookSearchPage from "./pages/BookSearchPage";
+import PersonalBookshelfPage from "./pages/PersonalBookshelfPage";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+const App = () => {
+  const [bookshelf, setBookshelf] = useState(
+    JSON.parse(localStorage.getItem("bookshelf")) || []
   );
-}
+
+  const addToBookshelf = (book) => {
+    const updatedBookshelf = [...bookshelf, book];
+    setBookshelf(updatedBookshelf);
+    localStorage.setItem("bookshelf", JSON.stringify(updatedBookshelf));
+    toast.success("Book added to bookshelf!");
+  };
+
+  return (
+    <Router>
+      <div className="">
+        
+        <ToastContainer />
+        <Routes>
+          <Route
+            path="/"
+            element={<BookSearchPage addToBookshelf={addToBookshelf} />}
+          />
+          <Route path="/bookshelf" element={<PersonalBookshelfPage />} />
+        </Routes>
+      </div>
+    </Router>
+  );
+};
 
 export default App;

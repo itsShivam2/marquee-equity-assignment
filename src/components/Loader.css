@@ -1,0 +1,25 @@
+
+.spinner {
+   position: relative;
+   width: 88px;
+   height: 88px;
+   animation: spinner-x0t3la 3s infinite linear;
+}
+
+.spinner::before {
+   content: '';
+   display: block;
+   height: 88px;
+   width: 17.6px;
+   animation: spinner-x0t3la 0.5s infinite;
+   background: #fff;
+   position: absolute;
+   left: 50%;
+   margin-left: -8.8px;
+}
+
+@keyframes spinner-x0t3la {
+   to {
+      transform: rotate(360deg);
+   }
+}
